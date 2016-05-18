@@ -14,3 +14,7 @@ class ProvinceCity(models.Model):
         db_table = "province_city"
         verbose_name = "国家-省份-市"
         verbose_name_plural = "国家-省份-市"
+
+
+class ScenicEntity(models.Model):
+    pass

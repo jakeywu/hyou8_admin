@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hyou8_admin',
+    'scenic',
+    'comments',
 ]
 
 MIDDLEWARE_CLASSES = [

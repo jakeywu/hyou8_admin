@@ -1,7 +1,7 @@
 # __author__ = 'jakey'
 
 from django.contrib import admin
-from hyou8_admin.models import ProvinceCity
+from scenic.models import ProvinceCity
 
 
 @admin.register(ProvinceCity)

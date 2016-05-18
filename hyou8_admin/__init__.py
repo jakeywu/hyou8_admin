@@ -1,1 +1,1 @@
-default_app_config = 'hyou8_admin.apps.Hyou8Admin'
+default_app_config = 'scenic.apps.Hyou8Admin'
