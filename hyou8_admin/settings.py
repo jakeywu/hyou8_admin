@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hyou8_admin',
     'scenic',
+    'common',
+    'advertisement',
     'comments',
+    'payment',
+    'statistics',
+    'user_info',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -129,3 +134,6 @@ ADMIN_SITE_HEADER = "环游吧后台管理"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media/'

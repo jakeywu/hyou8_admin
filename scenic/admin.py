@@ -1,16 +1,7 @@
 # __author__ = 'jakey'
 
 from django.contrib import admin
-from scenic.models import ProvinceCity, ScenicDescribe, ScenicTypes, ScenicPictures, ScenicVideos
-
-
-@admin.register(ProvinceCity)
-class ProvinceCityAdmin(admin.ModelAdmin):
-    fields = ("name", "pid")
-    search_fields = ("name", )
-    list_display = ["name", "pid", "id"]
-    list_filter = ["name"]
-    list_per_page = 50
+from scenic.models import ScenicDescribe, ScenicTopic, ScenicPictures, ScenicVideos, ScenicNews, ScenicStyle
 
 
 @admin.register(ScenicDescribe)
@@ -18,7 +9,7 @@ class ScenicDescribeAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(ScenicTypes)
+@admin.register(ScenicTopic)
 class ScenicTypesAdmin(admin.ModelAdmin):
     pass
 
@@ -30,4 +21,14 @@ class ScenicPicturesAdmin(admin.ModelAdmin):
 
 @admin.register(ScenicVideos)
 class ScenicVideosAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ScenicNews)
+class ScenicNews(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ScenicStyle)
+class ScenicStyleAdmin(admin.ModelAdmin):
     pass
