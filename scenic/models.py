@@ -4,6 +4,7 @@ import os
 import time
 from uuid import uuid4
 from django.db import models
+from django.utils.timezone import now
 
 PICTURES_CHOICES = (
     (1, '普通图片'),
@@ -39,7 +40,8 @@ class ScenicTopic(models.Model):
     """
     景区类型
     """
-    topic_name = models.CharField(verbose_name="景区类型名称", max_length=200, blank=True)
+    topic_name = models.CharField(verbose_name="景区类型名称", max_length=100)
+    topic_describe = models.CharField(verbose_name="类型描述", max_length=300, blank=True)
 
     def __str__(self):
         return self.topic_name
@@ -48,21 +50,6 @@ class ScenicTopic(models.Model):
         db_table = "scenic_types"
         verbose_name = "景区类型"
         verbose_name_plural = "景区类型"
-
-
-class ScenicStyle(models.Model):
-    """
-    景区风格
-    """
-    style_name = models.CharField(verbose_name="风格名称", max_length=200)
-
-    def __str__(self):
-        return self.style_name
-
-    class Meta:
-        db_table = "scenic_style"
-        verbose_name = "主题风格"
-        verbose_name_plural = "主题风格"
 
 
 class ScenicDescribe(models.Model):
@@ -85,7 +72,7 @@ class ScenicDescribe(models.Model):
     describe_website = models.URLField(verbose_name="景区官网", blank=True)
 
     province_city = models.ForeignKey("common.ProvinceCity", verbose_name="景区省市")
-    scenic_style_id = models.ForeignKey("ScenicStyle", verbose_name="景区风格ID")
+    scenic_style_id = models.ForeignKey("common.ScenicStyle", verbose_name="景区风格ID")
     scenic_topic_id = models.ForeignKey("ScenicTopic", verbose_name="景区主题类型ID")
 
     def __str__(self):
@@ -93,8 +80,8 @@ class ScenicDescribe(models.Model):
 
     class Meta:
         db_table = "scenic_describe"
-        verbose_name = "描述"
-        verbose_name_plural = "描述"
+        verbose_name = "景区主体"
+        verbose_name_plural = "景区主体"
 
 
 class ScenicPictures(models.Model):
@@ -104,7 +91,7 @@ class ScenicPictures(models.Model):
     pictures_name = models.CharField(verbose_name="景区图片名称", max_length=200, blank=True)
     pictures_path = models.ImageField(verbose_name="景区图片路径", upload_to=image_uploads_path)
     pictures_type = models.PositiveSmallIntegerField(verbose_name="图片类型", choices=PICTURES_CHOICES, default=1)
-    scenic_describe_id = models.ForeignKey("ScenicDescribe", verbose_name="景区ID", on_delete=models.CASCADE)
+    scenic_describe_id = models.ForeignKey("ScenicDescribe", verbose_name="景区名称", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.pictures_name
@@ -121,7 +108,7 @@ class ScenicVideos(models.Model):
     """
     videos_name = models.CharField(verbose_name="景区视频名称", max_length=200, blank=True)
     videos_path = models.FileField(verbose_name="景区视频路径", upload_to=video_uploads_path)
-    scenic_describe_id = models.ForeignKey("ScenicDescribe", verbose_name="景区ID", on_delete=models.CASCADE)
+    scenic_describe_id = models.ForeignKey("ScenicDescribe", verbose_name="景区名称", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.videos_name
@@ -137,15 +124,16 @@ class ScenicNews(models.Model):
     景区关联新闻
     """
     news_title = models.CharField(verbose_name="新闻标题", max_length=100)
-    news_time = models.DateTimeField(verbose_name="新闻时间", auto_now_add=True)
+    news_time = models.DateTimeField(verbose_name="新闻时间", default=now)
     news_abstract = models.CharField(verbose_name="新闻摘要", max_length=300)
     news_content = models.TextField(verbose_name="新闻内容")
-    scenic_describe_id = models.ForeignKey("ScenicDescribe", verbose_name="景区ID", on_delete=models.CASCADE)
+    news_audit_status = models.NullBooleanField(verbose_name="审核状态")
+    scenic_describe_id = models.ForeignKey("ScenicDescribe", verbose_name="景区名称", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.news_title
 
     class Meta:
         db_table = "scenic_news"
-        verbose_name = "新闻"
-        verbose_name_plural = "新闻"
+        verbose_name = "景区新闻"
+        verbose_name_plural = "景区新闻"

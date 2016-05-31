@@ -6,4 +6,4 @@ from comments.models import CommentScenic
 
 @admin.register(CommentScenic)
 class CommentScenicAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("comments_title", "scenic_id", "user_id", "picture_id", "comments_like", "comments_view", )
